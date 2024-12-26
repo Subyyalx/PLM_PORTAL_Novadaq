@@ -29,6 +29,7 @@ jobs:
     - name: Deploy FastAPI Application
       run: |
           # Start the FastAPI app in the background
-            /home/subyyal/startup.sh
+            /home/subyyal/actions-runner/aiproject/aiproject/aiproject/startup.sh
+            pwd
 
       
