@@ -17,6 +17,9 @@ jobs:
     steps:
     - name: Checkout code
       uses: actions/checkout@v3
+    - name: Path check
+      run: |
+        pwd
     
     - name: Set up Python
       uses: actions/setup-python@v4
@@ -25,6 +28,7 @@ jobs:
     
     - name: Install dependencies
       run: |
+        pwd
         pip install -r requirements.txt
     
     - name: Deploy FastAPI Application
