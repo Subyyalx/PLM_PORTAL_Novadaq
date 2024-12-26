@@ -32,7 +32,7 @@ jobs:
         pkill -f "uvicorn app:app" || echo "No existing process found"
         
         # Start the FastAPI app in the background
-        ./startup.sh
+         /home/subyyal/actions-runner/aiproject/aiproject/aiproject/startup.sh
 
         # Optional: Confirm the app is running
         sleep 5
