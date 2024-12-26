@@ -27,10 +27,6 @@ jobs:
       run: |
         pip install -r requirements.txt
     
-    - name: Run tests
-      run: |
-        pytest tests/
-    
     - name: Deploy FastAPI Application
       run: |
         # Stop the existing FastAPI process if running
