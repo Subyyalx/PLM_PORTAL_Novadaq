@@ -18,7 +18,7 @@ class User(BaseModel):
 # Home route
 @app.get("/")
 def home():
-    return {"message": "Welcome to the FastAPI REST API!"}
+    return {"message": "Welcome to PROD environment!"}
 
 # Get all users
 @app.get("/users")
@@ -36,7 +36,7 @@ def get_user(user_id: int):
 # Add a new user
 @app.post("/users", status_code=201)
 def add_user(user: User):
-    data.append(user.dict())
+    data.append(user.model_dump())
     return {"message": "User added successfully!"}
 
 # Run with uvicorn (if running as main)
