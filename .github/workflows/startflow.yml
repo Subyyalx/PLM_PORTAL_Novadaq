@@ -27,9 +27,6 @@ jobs:
         sleep 5
         curl -I http://127.0.0.1:8000 || (echo "FastAPI failed to start" && exit 1)
 
-    - name: Display Uvicorn Logs
-      run: |
-        cat uvicorn.log
 
 
       
