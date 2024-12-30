@@ -23,7 +23,7 @@ jobs:
       run: |
         cd ~/actions-runner/aiproject/aiproject/aiproject
         setsid nohup /home/subyyal/.local/bin/uvicorn app:app --host 0.0.0.0 --port 8000 >  /dev/null 2>&1 &
-        setsid uvicorn main:app --host 0.0.0.0 --port 8000 > /dev/null 2>&1 &
+    
         sleep 5
         curl -I http://127.0.0.1:8000 || (echo "FastAPI failed to start" && exit 1)
 
