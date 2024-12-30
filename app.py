@@ -18,7 +18,7 @@ class User(BaseModel):
 # Home route
 @app.get("/")
 def home():
-    return {"message": "Welcome to DEV environment!"}
+    return {"message": "Welcome to MASTER!"}
 
 # Get all users
 @app.get("/users")
