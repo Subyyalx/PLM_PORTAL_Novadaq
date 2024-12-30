@@ -28,8 +28,14 @@ jobs:
     
     - name: Deploy FastAPI Application
       run: |
-          # Start the FastAPI app in the background
-            /home/subyyal/actions-runner/aiproject/aiproject/aiproject/startup.sh
-            pwd
+        # Stop the existing FastAPI process if running
+        pkill -f "uvicorn app:app" || echo "No existing process found"
+        
+        # Start the FastAPI app in the background
+        nohup uvicorn app:app --host 0.0.0.0 --port 8000 &
+
+        # Optional: Confirm the app is running
+        sleep 5
+        curl -I http://127.0.0.1:8000 || echo "FastAPI did not start"
 
       
