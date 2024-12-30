@@ -1,41 +1,34 @@
-name: CI/CD Pipeline - Production
+name: CI/CD Pipeline - FastAPI with Uvicorn
 
 on:
-  push:
-    branches:
-      - master
-  pull_request:
-    branches:
-      - main
-  workflow_dispatch:  # Allows manual triggering of the workflow from the GitHub UI
+  workflow_dispatch:  # Allows manual triggering of the workflow
 
 jobs:
-  production:
-    runs-on: [self-hosted]  # Specify the self-hosted runner with a label 'production'
-    
-    
+  deploy:
+    runs-on: self-hosted  # Using your self-hosted runner
+
     steps:
     - name: Checkout code
       uses: actions/checkout@v3
-    - name: Path check
-      run: |
-        pwd
-    
     - name: Install dependencies
       run: |
-        pwd
+        python3 -m pip install --upgrade pip
         pip install -r requirements.txt
-    
-    - name: Deploy FastAPI Application
-      run: |
-        # Stop the existing FastAPI process if running
-        pkill -f "uvicorn app:app" || echo "No existing process found"
-        
-        # Start the FastAPI app in the background
-        setsid uvicorn main:app --host 0.0.0.0 --port 8000 > /dev/null 2>&1 &
 
-        # Optional: Confirm the app is running
+    - name: Stop existing Uvicorn process
+      run: |
+        pkill -f "uvicorn" || echo "No existing Uvicorn process found"
+
+    - name: Start FastAPI with Uvicorn
+      run: |
+        cd ~/actions-runner/aiproject/aiproject/aiproject
+        nohup /home/subyyal/.local/bin/uvicorn app:app --host 0.0.0.0 --port 8000 > uvicorn.log 2>&1 &
         sleep 5
-        curl -I http://127.0.0.1:8000 || echo "FastAPI did not start"
+        curl -I http://127.0.0.1:8000 || (echo "FastAPI failed to start" && exit 1)
+
+    - name: Display Uvicorn Logs
+      run: |
+        cat uvicorn.log
+
 
       
